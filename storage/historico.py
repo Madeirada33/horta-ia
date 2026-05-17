@@ -23,3 +23,10 @@ def salvar_dados(planta, umidade, temperatura, saude):
 
     with open(ARQUIVO, "w") as f:
         json.dump(dados, f, indent=4)
+        
+def carregar_dados():
+    try:
+        with open(ARQUIVO, "r") as f:
+            return json.load(f)
+    except:
+        return []
