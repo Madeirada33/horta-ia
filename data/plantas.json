@@ -1,0 +1,36 @@
+{
+  "alface": {
+    "umidade_minima": 40,
+    "temperatura_min": 10,
+    "temperatura_max": 25,
+    "luz": "media"
+  },
+
+  "tomate": {
+    "umidade_minima": 50,
+    "temperatura_min": 18,
+    "temperatura_max": 30,
+    "luz": "alta"
+  },
+
+  "cenoura": {
+    "umidade_minima": 35,
+    "temperatura_min": 10,
+    "temperatura_max": 24,
+    "luz": "media"
+  },
+
+  "couve": {
+    "umidade_minima": 45,
+    "temperatura_min": 12,
+    "temperatura_max": 26,
+    "luz": "media"
+  },
+
+  "cebola": {
+    "umidade_minima": 30,
+    "temperatura_min": 13,
+    "temperatura_max": 28,
+    "luz": "alta"
+  }
+}

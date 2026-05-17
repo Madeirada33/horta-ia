@@ -1,0 +1,7 @@
+.env
+.venv
+__pycache__
+*.pyc
+dados_horta.json
+dotenv/
+python_dotenv-1.2.2.dist-info/
