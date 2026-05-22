@@ -6,8 +6,10 @@ from ai.motor_decisao import analisar_planta
 from storage.historico import salvar_dados, carregar_dados
 from bot import enviar_alerta
 import os
+from fastapi.staticfiles import StaticFiles
  
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="."), name="static")
  
 @app.get("/", response_class=HTMLResponse)
 def dashboard():
