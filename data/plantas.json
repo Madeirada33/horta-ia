@@ -32,5 +32,12 @@
     "temperatura_min": 13,
     "temperatura_max": 28,
     "luz": "alta"
+  },
+  
+  "Samambaia": {
+    "umidade_minima": 50,
+    "temperatura_min": 18,
+    "temperatura_max": 30,
+    "luz": "alta"
   }
 }
