@@ -47,5 +47,14 @@
     "temperatura_max": 28,
 
     "luz": "alta"
+  },
+  "samanbaia": {
+    "umidade_min": 40,
+    "umidade_max": 70,
+
+    "temperatura_min": 12,
+    "temperatura_max": 31,
+
+    "luz": "alta"
   }
 }
