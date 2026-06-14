@@ -1,43 +1,51 @@
 {
-  "alface": {
-    "umidade_minima": 40,
-    "temperatura_min": 10,
-    "temperatura_max": 25,
-    "luz": "media"
+"alface": {
+  "umidade_min": 40,
+  "umidade_max": 80,
+
+  "temperatura_min": 10,
+  "temperatura_max": 25,
+
+  "luz": "media"
   },
 
   "tomate": {
-    "umidade_minima": 50,
-    "temperatura_min": 18,
-    "temperatura_max": 30,
-    "luz": "alta"
+  "umidade_min": 60,
+  "umidade_max": 80,
+
+  "temperatura_min": 10,
+  "temperatura_max": 25,
+
+  "luz": "alta"
   },
 
   "cenoura": {
-    "umidade_minima": 35,
+    "umidade_min": 35,
+    "umidade_max": 80,
+
     "temperatura_min": 10,
     "temperatura_max": 24,
+
     "luz": "media"
   },
 
   "couve": {
-    "umidade_minima": 45,
+    "umidade_min": 45,
+    "umidade_max":  70,
+    
     "temperatura_min": 12,
     "temperatura_max": 26,
+
     "luz": "media"
   },
 
   "cebola": {
-    "umidade_minima": 30,
+    "umidade_min": 30,
+    "umidade_max": 80,
+
     "temperatura_min": 13,
     "temperatura_max": 28,
-    "luz": "alta"
-  },
-  
-  "samambaia": {
-    "umidade_minima": 50,
-    "temperatura_min": 18,
-    "temperatura_max": 30,
+
     "luz": "alta"
   }
 }
