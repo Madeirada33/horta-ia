@@ -418,12 +418,25 @@
       return 'badge-vermelho';
     }
 
-    function getRecClass(rec) {
-      const r = rec.toLowerCase();
-      if (r.includes('ideal')) return '';
-      if (r.includes('irrigar') || r.includes('proteger')) return 'aviso';
-      return 'alerta';
-    }
+      function getRecClass(rec) {
+    const r = rec.toLowerCase();
+    if (r.includes('ideal') || r.includes('condições')) return '';
+    if (r.includes('irrigar') || r.includes('reduzir irrigação')) return 'aviso';
+    if (r.includes('secando') || r.includes('encharcando') || 
+        r.includes('aquecimento') || r.includes('resfriamento')) return 'tendencia';
+    if (r.includes('estresse') || r.includes('prejudicar') || 
+        r.includes('sofrer') || r.includes('alerta')) return 'alerta';
+    return 'aviso';
+  }
+
+  const recsHtml = recomendacoes.map(r => {
+    const classe = getRecClass(r);
+    const icone = classe === '' ? '✓' 
+                : classe === 'aviso' ? '⚠️' 
+                : classe === 'tendencia' ? '📈' 
+                : '🚨';
+    return `<div class="rec-item ${classe}"><span>${icone}</span> ${r}</div>`;
+  }).join('');
 
     function formatData(iso) {
       if (!iso) return '—';
