@@ -235,35 +235,36 @@
     }
 
      .rec-item {
-    background: rgba(16, 185, 129, 0.06);
-    border: 1px solid rgba(16, 185, 129, 0.15);
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #34d399;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     .rec-item.aviso {
-    background: rgba(245, 158, 11, 0.06);
-    border-color: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
-  }
+      background: rgba(245, 158, 11, 0.06);
+      border-color: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
 
-  .rec-item.tendencia {
-    background: rgba(249, 115, 22, 0.06);
-    border-color: rgba(249, 115, 22, 0.15);
-    color: #fb923c;
-  }
+    .rec-item.tendencia {
+      background: rgba(249, 115, 22, 0.06);
+      border-color: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+    }
 
-  .rec-item.alerta {
-    background: rgba(239, 68, 68, 0.06);
-    border-color: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-  }
+    .rec-item.alerta {
+      background: rgba(239, 68, 68, 0.06);
+      border-color: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+      
     /* Tabela de Histórico Corporativa */
     .historico-card {
       background: var(--card);
@@ -420,10 +421,15 @@
 
     function getRecClass(rec) {
       const r = rec.toLowerCase();
-      if (r.includes('ideal')) return '';
-      if (r.includes('irrigar') || r.includes('proteger')) return 'aviso';
-      return 'alerta';
+      if (r.includes('ideal') || r.includes('condições')) return '';
+      if (r.includes('irrigar') || r.includes('reduzir irrigação')) return 'aviso';
+      if (r.includes('secando') || r.includes('encharcando') || 
+          r.includes('aquecimento') || r.includes('resfriamento')) return 'tendencia';
+      if (r.includes('estresse') || r.includes('prejudicar') || 
+          r.includes('sofrer') || r.includes('alerta')) return 'alerta';
+      return 'aviso';
     }
+
 
     function formatData(iso) {
       if (!iso) return '—';
@@ -463,11 +469,14 @@
       const saudeColor = getSaudeColor(dadoAtual.saude || 0);
       
       const recomendacoes = dadoAtual.recomendacoes || ['Aguardando telemetria inicial...'];
-      const recsHtml = recomendacoes.map(r => 
-        `<div class="rec-item ${getRecClass(r)}">
-          <span>${r.toLowerCase().includes('ideal') ? '✓' : '⚡'}</span> ${r}
-        </div>`
-      ).join('');
+      const recsHtml = recomendacoes.map(r => {
+        const classe = getRecClass(r);
+        const icone = classe === '' ? '✓' 
+                    : classe === 'aviso' ? '⚠️' 
+                    : classe === 'tendencia' ? '📈' 
+                    : '🚨';
+        return `<div class="rec-item ${classe}"><span>${icone}</span> ${r}</div>`;
+      }).join('');
 
       const historicoHtml = listaHistorico.length === 0 
         ? '<tr><td colspan="5" style="text-align:center;color:var(--texto2);padding:32px">Nenhum registro armazenado no banco de dados.</td></tr>'
