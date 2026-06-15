@@ -420,15 +420,10 @@
 
     function getRecClass(rec) {
       const r = rec.toLowerCase();
-      if (r.includes('ideal') || r.includes('condições')) return '';
-      if (r.includes('irrigar') || r.includes('reduzir irrigação')) return 'aviso';
-      if (r.includes('secando') || r.includes('encharcando') || 
-          r.includes('aquecimento') || r.includes('resfriamento')) return 'tendencia';
-      if (r.includes('estresse') || r.includes('prejudicar') || 
-          r.includes('sofrer') || r.includes('alerta')) return 'alerta';
-      return 'aviso';
+      if (r.includes('ideal')) return '';
+      if (r.includes('irrigar') || r.includes('proteger')) return 'aviso';
+      return 'alerta';
     }
-
 
     function formatData(iso) {
       if (!iso) return '—';
@@ -468,14 +463,11 @@
       const saudeColor = getSaudeColor(dadoAtual.saude || 0);
       
       const recomendacoes = dadoAtual.recomendacoes || ['Aguardando telemetria inicial...'];
-      const recsHtml = recomendacoes.map(r => {
-        const classe = getRecClass(r);
-        const icone = classe === '' ? '✓' 
-                    : classe === 'aviso' ? '⚠️' 
-                    : classe === 'tendencia' ? '📈' 
-                    : '🚨';
-  return `<div class="rec-item ${classe}"><span>${icone}</span> ${r}</div>`;
-}).join('');
+      const recsHtml = recomendacoes.map(r => 
+        `<div class="rec-item ${getRecClass(r)}">
+          <span>${r.toLowerCase().includes('ideal') ? '✓' : '⚡'}</span> ${r}
+        </div>`
+      ).join('');
 
       const historicoHtml = listaHistorico.length === 0 
         ? '<tr><td colspan="5" style="text-align:center;color:var(--texto2);padding:32px">Nenhum registro armazenado no banco de dados.</td></tr>'
