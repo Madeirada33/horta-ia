@@ -69,24 +69,26 @@
       gap: 16px;
     }
 
-    .logo-icon {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      background: rgba(16, 185, 129, 0.06);
-      border: 1px solid rgba(16, 185, 129, 0.15);
-      backdrop-filter: blur(8px);
-    }
+      .logo-icon {
+    width: 76px;       /* Aumenta o quadrado externo */
+    height: 76px;      /* Aumenta o quadrado externo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03); /* Fundo sutil para contrastar com o branco */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+  }
 
-    .logo-icon img {
-      width: 60%;
-      height: 60%;
-      object-fit: contain;
-      filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
-    }
+  .logo-icon img {
+    width: 90%;        /* Faz a logo ocupar quase todo o espaço disponível */
+    height: 90%;
+    object-fit: contain;
+
+    /* Força qualquer cor original do SVG a virar branco puro com brilho suave */
+    filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
+  }
 
     .logo-text h1 {
       font-size: 20px;
