@@ -35,7 +35,7 @@ def buscar_planta(nome):
     }
 
 def buscar_planta_groq(nome):
-    prompt = f"""Você é um agrônomo especialista em cultivo de plantas tropicais e hortaliças.
+    prompt = f"""Você é um agrônomo especialista em cultivo de plantas no geral.
 Retorne APENAS um JSON válido com os parâmetros ideais de cultivo para a planta "{nome}".
 O JSON deve ter exatamente este formato, sem texto adicional:
 {{
