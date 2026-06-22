@@ -48,7 +48,7 @@ Use valores agronomicamente corretos baseados em literatura científica."""
 
     try:
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.1,
             max_tokens=200
