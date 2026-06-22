@@ -102,43 +102,43 @@ def calcular_saude_temperatura(temperatura, minimo, maximo):
     diferenca = temperatura - maximo
     return max(0, 100 - diferenca * 5)
 
-def analisar_planta(planta, umidade, temperatura):
+def analisar_planta(planta, umidade_solo, temperatura_solo, dados_previsao=None):
     planta = planta.lower()
-
     dados = buscar_planta(planta)
 
     if not dados:
-        print(f"Planta '{planta}' não encontrada no banco. Consultando Groq...")
+        print(f"Planta '{planta}' não encontrada... Consultando Groq...")
         dados = buscar_planta_groq(planta)
 
     if not dados:
-        return 0, ["Planta não cadastrada e não foi possível obter parâmetros"]
+        return 0, ["Planta não cadastrada e sem parâmetros disponíveis"]
 
     recomendacoes = []
 
-    saude_umidade = calcular_saude_umidade(
-        umidade,
-        dados["umidade_min"],
-        dados["umidade_max"]
-    )
-
-    saude_temperatura = calcular_saude_temperatura(
-        temperatura,
-        dados["temperatura_min"],
-        dados["temperatura_max"]
-    )
-
+    saude_umidade = calcular_saude_umidade(umidade_solo, dados["umidade_min"], dados["umidade_max"])
+    saude_temperatura = calcular_saude_temperatura(temperatura_solo, dados["temperatura_min"], dados["temperatura_max"])
     saude = int((saude_umidade + saude_temperatura) / 2)
 
-    if umidade < dados["umidade_min"]:
-        recomendacoes.append("Solo seco → irrigar")
-    elif umidade > dados["umidade_max"]:
-        recomendacoes.append("Solo encharcado → reduzir irrigação")
+    # 1. PREDITIVIDADE DE UMIDADE (Solo vs Chuva do Futuro)
+    if umidade_solo < dados["umidade_min"]:
+        if dados_previsao and dados_previsao["vai_chover_logo"]:
+            recomendacoes.append(
+                f"Solo seco ({umidade_solo}%), mas há previsão de chuva para as próximas horas ({dados_previsao['descricao_futura']}). Irrigação suspensa preventivamente."
+            )
+        else:
+            recomendacoes.append("Solo seco → irrigar")
+            
+    elif umidade_solo > dados["umidade_max"]:
+        recomendacoes.append("Solo encharcado → suspender irrigações")
 
-    if temperatura < dados["temperatura_min"]:
-        recomendacoes.append("Temperatura baixa → proteger planta")
-    elif temperatura > dados["temperatura_max"]:
-        recomendacoes.append("Temperatura alta → reduzir exposição ao calor")
+    # 2. PREDITIVIDADE DE TEMPERATURA (Calor vindo por aí)
+    if temperatura_solo > dados["temperatura_max"]:
+        recomendacoes.append("Temperatura alta no solo → reduzir exposição ao calor")
+    elif dados_previsao and dados_previsao["temperatura_ar_futura"] > dados["temperatura_max"]:
+        # O solo ainda não esquentou, mas o ar das próximas horas vai passar do limite da planta
+        recomendacoes.append(
+            f"Alerta: Previsão de calor excessivo ({int(dados_previsao['temperatura_ar_futura'])}°C) nas próximas horas. Considere mover a planta para a sombra antes que o solo superaqueça."
+        )
 
     if len(recomendacoes) == 0:
         recomendacoes.append("Condições ideais")
